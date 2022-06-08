@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Request as RequestModel;
 use App\Models\RequestDetail;
 use Validator;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RequestController extends Controller
@@ -21,11 +21,14 @@ class RequestController extends Controller
             // echo $erros;
             return $erros;
          }else{
-             $filenames=[];
-             $create_request= RequestModel::create($request->all());//normal request table
-             $req_id=$create_request->id;
+             $date = Carbon::now();// will get you the current date, time 
+            $submitted_by=$date->format("d/m/Y");
             //  create for detail table of the request
-            
+             $filenames=[];
+             $create_request= RequestModel::create([
+                            'submitted_by'=>$submitted_by
+                            ]+$request->all());//normal request table
+             $req_id=$create_request->id;
              if($request->hasFile('supporting_materials')){
 
                  foreach($request->file('supporting_materials') as $file) {
@@ -40,7 +43,8 @@ class RequestController extends Controller
                         // $request_detail=
                         RequestDetail::create(
                             ['request_id'=>$req_id,
-                            'supporting_materials'=>json_encode($filenames)
+                            'supporting_materials'=>json_encode($filenames),
+                            'submitted_by'=>$submitted_by
                             ]+
                             $request->all()
                         );
@@ -87,8 +91,8 @@ class RequestController extends Controller
     }
 
     public function getAllRequest(){
-        return 
-        RequestModel::all();
+            return 
+            RequestModel::all();
     }
     public function getUserRequests(Request $request){
     $id=$request->user_id;
@@ -105,7 +109,7 @@ class RequestController extends Controller
                 orderBy('created_at')
                 ->where('user_id',$id)
                 ->get();
-
+                $request->created_at= 'chris';
                 return response()->json([
                     'success'=>true,
                     'message'=>'Your request has been placed successfully',

@@ -49,6 +49,7 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:d/m/Y',
     ];
     public function getJWTIdentifier()
     {
