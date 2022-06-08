@@ -27,11 +27,11 @@ Event::listen(MigrationsStarted::class, function (){
     }
 });
 
-Event::listen(MigrationsEnded::class, function (){
-    if (env('ALLOW_DISABLED_PK')) {
-        DB::statement('SET SESSION sql_require_primary_key=1');
-    }
-});
+        Event::listen(MigrationsEnded::class, function (){
+            if (env('ALLOW_DISABLED_PK')) {
+                DB::statement('SET SESSION sql_require_primary_key=1');
+            }
+        });
     }
 
     /**
