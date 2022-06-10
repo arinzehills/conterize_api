@@ -22,7 +22,7 @@ Route::post('/resetPassword', [UserController::class, 'resetPassword'])->
 /* for company api */
 Route::post('/updateCompany', [CompanyController::class, 'updateCompany']);
 Route::post('/getUserCompany', [CompanyController::class, 'getUserCompany']);
-Route::get('/getAllCompanies', [CompanyController::class, 'getAllCompanies']);
+Route::post('/getAllCompanies', [CompanyController::class, 'getAllCompanies']);
 
 /* these is for client request for content */
 Route::post('/addRequest', [RequestController::class, 'addRequest']);

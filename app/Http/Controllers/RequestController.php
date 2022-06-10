@@ -91,6 +91,8 @@ class RequestController extends Controller
     }
 
     public function getAllRequest(){
+        // $companies = User::join('companies', 'users.id', '=', 'companies.user_id')
+        //        ->get();
             return 
             RequestModel::all();
     }
