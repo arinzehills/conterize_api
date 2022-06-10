@@ -21,14 +21,14 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
         // code in `register` method 
-Event::listen(MigrationsStarted::class, function (){
-    if (env('ALLOW_DISABLED_PK')) {
-        DB::statement('SET SESSION sql_require_primary_key=0');
-    }
-});
+        Event::listen(MigrationsStarted::class, function (){
+            if (config('databases.allow_disabled_pk')) {
+                DB::statement('SET SESSION sql_require_primary_key=0');
+            }
+        });
 
         Event::listen(MigrationsEnded::class, function (){
-            if (env('ALLOW_DISABLED_PK')) {
+            if (config('databases.allow_disabled_pk')) {
                 DB::statement('SET SESSION sql_require_primary_key=1');
             }
         });

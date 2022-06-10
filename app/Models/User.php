@@ -12,10 +12,11 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use JWTAuth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Notifications\CustomResetNotification;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements JWTSubject,CanResetPassword 
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,Billable;
 
     /**
      * The attributes that are mass assignable.

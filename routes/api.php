@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\FreelancersController;
+use App\Http\Controllers\PaymentController;
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
@@ -34,6 +35,10 @@ Route::post('/assignFreelancer', [FreelancersController::class, 'assignFreelance
 
 // this is for freelancers 
 Route::post('/getAllFreelancers', [FreelancersController::class, 'getAllFreelancers']);
+//for subscription
+Route::post('/subscribe', [PaymentController::class, 'subscribe']);
+Route::post('/createPlan', [PaymentController::class, 'createPlan']);
+Route::post('/retrievePlans', [PaymentController::class, 'retrievePlans']);
 
 /*
 |--------------------------------------------------------------------------
