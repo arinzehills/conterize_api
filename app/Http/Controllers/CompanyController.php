@@ -21,12 +21,16 @@ class CompanyController extends Controller
             // echo $erros;
             return $erros;
          }else{
+            $user_info=User::find($user_id);
+            $user_info->nationality=$request->nationality;
+            $user_info->save();
         Company::updateOrCreate(['user_id'=>$user_id],array_filter($request->all()));
         $company_info=Company::
         where('user_id',$user_id)
         ->get();
 
-
+        
+        
         return response()->json([
             'success'=>true,
             'company_info'=> $company_info,
