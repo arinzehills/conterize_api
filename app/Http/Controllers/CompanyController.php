@@ -10,8 +10,9 @@ use Validator;
 class CompanyController extends Controller
 {
     //
-    public function updateCompany(Request $request){
+    public function addCompany(Request $request){
         $user_id=$request->user_id;
+        $company_id=$request->company_id;
         $rules = ['user_id'=>'required:companies,user_id'];
         $validator = Validator::make($request->all(), $rules);
     
@@ -21,10 +22,12 @@ class CompanyController extends Controller
             // echo $erros;
             return $erros;
          }else{
-            $user_info=User::find($user_id);
-            $user_info->nationality=$request->nationality;
-            $user_info->save();
-        Company::updateOrCreate(['user_id'=>$user_id],array_filter($request->all()));
+            // $user_info=User::find($user_id);
+            // if($request->nationality){//check if is null
+            //     $user_info->nationality=$request->nationality;
+            //     $user_info->save();
+            // }
+        Company::updateOrCreate(['id'=>$company_id],array_filter($request->all()));
         $company_info=Company::
         where('user_id',$user_id)
         ->get();
@@ -37,7 +40,7 @@ class CompanyController extends Controller
         ], 422);
          }
     }
-    public function getUserCompany(Request $request){
+    public function getUserCompanies(Request $request){
         $user_id=$request->user_id;
         $rules = ['user_id'=>'required:companies,user_id'];
         $validator = Validator::make($request->all(), $rules);
@@ -53,7 +56,48 @@ class CompanyController extends Controller
             ->get();
             return response()->json([
                 'success'=>true,
+                // 'company_info'=> $company_info[0],
+                'company_info'=> $company_info,
+            ], 422);
+         }
+    }
+    public function getUserCompanyDetail(Request $request){
+        $company_id=$request->company_id;
+        $rules = ['company_id'=>'required:companies,company_id'];
+        $validator = Validator::make($request->all(), $rules);
+    
+        if ($validator->fails()) {
+            // handler errors
+            $erros = $validator->errors();
+            // echo $erros;
+            return $erros;
+         }else{
+            $company_info=Company::
+            where('id',$company_id)
+            ->get();
+            return response()->json([
+                'success'=>true,
                 'company_info'=> $company_info[0],
+            ], 422);
+         }
+    }
+    public function deleteCompany(Request $request){
+        $company_id=$request->company_id;
+        $rules = ['company_id'=>'required:companies,company_id'];
+        $validator = Validator::make($request->all(), $rules);
+    
+        if ($validator->fails()) {
+            // handler errors
+            $erros = $validator->errors();
+            // echo $erros;
+            return $erros;
+         }else{
+            $company_info=Company::
+            where('id',$company_id)
+            ->delete();
+            return response()->json([
+                'success'=>true,
+                'company_info'=> $company_info,
             ], 422);
          }
     }

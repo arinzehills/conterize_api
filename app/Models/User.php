@@ -79,8 +79,8 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
      }
      public function company()
         {
-            //return $this->hasMany(Order::class);
-            return $this->hasOne(Company::class);
+            return $this->hasMany(Company::class);
+            // return $this->hasOne(Company::class);
         }
         public function request()
         {

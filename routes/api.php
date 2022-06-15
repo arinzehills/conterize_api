@@ -20,8 +20,10 @@ Route::post('/resetPassword', [UserController::class, 'resetPassword'])->
                                             name('password.reset');
 
 /* for company api */
-Route::post('/updateCompany', [CompanyController::class, 'updateCompany']);
-Route::post('/getUserCompany', [CompanyController::class, 'getUserCompany']);
+Route::post('/addCompany', [CompanyController::class, 'addCompany']);
+Route::post('/deleteCompany', [CompanyController::class, 'deleteCompany']);
+Route::post('/getUserCompanies', [CompanyController::class, 'getUserCompanies']);
+Route::post('/getUserCompanyDetail', [CompanyController::class, 'getUserCompanyDetail']);
 Route::post('/getAllCompanies', [CompanyController::class, 'getAllCompanies']);
 
 /* these is for client request for content */
