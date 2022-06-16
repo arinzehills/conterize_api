@@ -28,7 +28,7 @@ class CreateRequestDetailsTable extends Migration
             $table->string('size')->nullable(); //dimension, video length or word count
             $table->json('reference_links')->nullable();
             $table->string('description')->nullable();//active, archived or underreview
-            $table->string('writing_topics')->nullable();
+            $table->json('writing_topics')->nullable();
             $table->string('supporting_info')->nullable();
             $table->json('supporting_materials')->nullable();
             $table->string('video_format')->nullable();//this is for only video request

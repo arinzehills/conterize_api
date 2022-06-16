@@ -25,8 +25,9 @@ class RequestDetail extends Model
         'overview',
     ];
     protected $casts = [
+        'supporting_materials'=>'array',
         'reference_links' => 'array',
-        // 'supporting_materials'=>'array'
+        'writing_topics'=>'array'
     ];
 
     public function request()

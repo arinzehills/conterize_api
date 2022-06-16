@@ -43,8 +43,9 @@ class RequestController extends Controller
                         // $request_detail=
                         RequestDetail::create(
                             ['request_id'=>$req_id,
-                            'supporting_materials'=>json_encode($filenames),
-                            'submitted_by'=>$submitted_by
+                            'supporting_materials'=>$filenames,
+                            'submitted_by'=>$submitted_by,
+                            
                             ]+
                             $request->all()
                         );
@@ -54,39 +55,6 @@ class RequestController extends Controller
                         'message'=>'Your request has been placed successfully',
                         // 'info'=>$create_request
                     ]);
-           
-          
-
-            //  if($request->hasFile('supporting_materials')) {
-                 
-            //     foreach($request->file('supporting_materials') as $file) {
-            //         $filename = $file->getClientOriginalExtension();
-            //         $file->move('uploads/', $filename);
-                    
-                    
-            //         return response()->json([
-            //             'success'=>true,
-            //             'filename'=>$filename
-            //         ]);
-            //         // Image::create([
-            //         //     'image_name' => $filename
-            //         // ]);
-            //     }}else{
-            //         return response()->json([
-            //             'success'=>false,
-            //         ]);
-            //     }
-            // echo $req_id;
-            // create for detail table of the request
-            //  $request_detail=RequestDetail::create($request->all()+['request_id'=>$req_id]);
-            //  $company_info=RequestDetail::
-            //  where('user_id',$user_id)
-            //  ->get();
-            //  return response()->json([
-            //     'success'=>true,
-            //     'message'=>'unsuccessufl',
-            //     'company_info'=> $company_info,
-            // ], 422);
          }
     }
 
@@ -97,8 +65,8 @@ class RequestController extends Controller
             RequestModel::all();
     }
     public function getUserRequests(Request $request){
-    $id=$request->user_id;
-        $rules = ['user_id'=>'required:transactions,user_id'];
+        $id=$request->user_id;
+        $rules = ['user_id'=>'required:requests,user_id'];
         $validator = Validator::make($request->all(), $rules);
     
         if ($validator->fails()) {
@@ -108,10 +76,9 @@ class RequestController extends Controller
             return $erros;
          }else{
                 $requests=RequestModel::
-                orderBy('created_at')
+                orderBy('created_at','desc')
                 ->where('user_id',$id)
                 ->get();
-                $request->created_at= 'chris';
                 return response()->json([
                     'success'=>true,
                     'message'=>'Your request has been placed successfully',
@@ -119,4 +86,33 @@ class RequestController extends Controller
                 ]);
          }
         }
+        public function getUserRequestDetail(Request $request){
+            $user_id=$request->user_id;
+            $request_id=$request->request_id;
+            $rules = ['user_id'=>'required:requests,user_id',
+            'request_id'=>'required:requests,request_id'];
+            $validator = Validator::make($request->all(), $rules);
+        
+            if ($validator->fails()) {
+                // handler errors
+                $erros = $validator->errors();
+                // echo $erros;
+                return $erros;
+             }else{
+                 //query the request detail of the given request id and check the 
+                 //matching column id in the request table and join them
+                 $request_detail=RequestDetail::where('request_id',$request_id)
+                                ->join('requests', 'requests.id', '=', 'request_details.request_id')->get();
+                 $supporting_materials= RequestDetail::all(['supporting_materials'])->
+                 where('request_id',$request_id)->toArray();
+                    return 
+                    
+                    response()->json([
+                        'success'=>true,
+                        'message'=>'Your request has been placed successfully',
+                        // 'supporting_materials'=>$supporting_materials,
+                        'requests'=>$request_detail
+                    ]);
+             }
+            }
 }

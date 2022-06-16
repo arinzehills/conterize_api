@@ -24,9 +24,10 @@ class CreateCompaniesTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
-            $table->string('short_description')->nullable();
-            $table->string('target_audience')->nullable();
-            $table->string('additional_info')->nullable();
+            $table->string('short_description',500)->nullable();
+            $table->string('target_audience',500)->nullable();
+            $table->string('additional_info',500)->nullable();
+            // $table->string('additional_ink')->nullable();
             $table->timestamps();
         });
     }
