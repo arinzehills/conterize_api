@@ -29,7 +29,8 @@ class UserController extends Controller {
         $password=bcrypt($request->password);
         $request->request->add(['password'=>$password]);
         // echo $request->email;
-        $rules = ['email'=>'unique:users,email'];
+        $rules = ['email'=>'unique:users,email|required','firstname'=>'required',
+                    'lastname'=>'required'];
          $validator = Validator::make($request->all(), $rules);
         // echo $validator;
 
@@ -41,7 +42,8 @@ class UserController extends Controller {
             return $erros;
          }else{
             $created=User::create($request->all());
-        $request->request->add(['password'=>$plainPassword]);
+
+            $request->request->add(['password'=>$plainPassword]);
         //login now..
         return $this->login($request);
          }
@@ -60,6 +62,14 @@ class UserController extends Controller {
         }
         //get the user
         $user=Auth::user();
+
+        //attach/update user automatically to a team
+        $teamModel = config('teamwork.team_model');
+        $team = $teamModel::updateOrCreate(['id'=>$user->id],[
+            'name' => $user->firstname,
+            'owner_id' => $user->getKey(),
+        ]);
+        $user->attachTeam($team);
 
         return response()->json([
             'success'=>true,            
@@ -110,7 +120,7 @@ class UserController extends Controller {
 
     public function update(Request $request){
         $user=$this->getCurrentUser($request);
-        // echo $user->id;
+        echo $user; 
         $data=$request->all();
         if(!$user){
             return response()->json([
@@ -122,7 +132,7 @@ class UserController extends Controller {
         // echo($data['token']);
         unset($data['token']);
         
-        echo($request->id);
+        // echo($request->id);
         $updatedUser = User::where('id', $user->id)->update($data);
         $user =  User::find($user->id);
         

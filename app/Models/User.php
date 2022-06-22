@@ -13,10 +13,11 @@ use JWTAuth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Notifications\CustomResetNotification;
 use Laravel\Cashier\Billable;
+use Mpociot\Teamwork\Traits\UserHasTeams;
 
-class User extends Authenticatable implements JWTSubject,CanResetPassword 
+class User extends Authenticatable implements JWTSubject,CanResetPassword
 {
-    use HasApiTokens, HasFactory, Notifiable,Billable;
+    use HasApiTokens, HasFactory, Notifiable,Billable,UserHasTeams;
 
     /**
      * The attributes that are mass assignable.

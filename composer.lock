@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f572462d58638b441ef8939eceaf1328",
+    "content-hash": "d94f8d069bc147915a526e723a79ef89",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1046,16 +1046,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.4.3",
+            "version": "7.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "74a8602c6faec9ef74b7a9391ac82c5e65b1cdab"
+                "reference": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/74a8602c6faec9ef74b7a9391ac82c5e65b1cdab",
-                "reference": "74a8602c6faec9ef74b7a9391ac82c5e65b1cdab",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+                "reference": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1150,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.4.3"
+                "source": "https://github.com/guzzle/guzzle/tree/7.4.4"
             },
             "funding": [
                 {
@@ -1166,7 +1166,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-25T13:24:33+00:00"
+            "time": "2022-06-09T21:39:15+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2480,6 +2480,72 @@
                 }
             ],
             "time": "2022-05-10T09:36:00+00:00"
+        },
+        {
+            "name": "mpociot/teamwork",
+            "version": "7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpociot/teamwork.git",
+                "reference": "261debfee8382be6570f9bbb6f3fea936eadb676"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpociot/teamwork/zipball/261debfee8382be6570f9bbb6f3fea936eadb676",
+                "reference": "261debfee8382be6570f9bbb6f3fea936eadb676",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6.0|^7.0|^8.0|^9.0",
+                "php": "^7.2.5|^8.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.10",
+                "illuminate/database": "^6.0|^7.0|^8.0|^9.0",
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mpociot\\Teamwork\\TeamworkServiceProvider"
+                    ],
+                    "aliases": {
+                        "Teamwork": "Mpociot\\Teamwork\\Facades\\Teamwork"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mpociot\\Teamwork\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "m.pociot@gmail.com"
+                },
+                {
+                    "name": "Oliver Kaufmann",
+                    "email": "okaufmann91@gmail.com"
+                }
+            ],
+            "description": "User to Team associations for the Laravel 5 Framework",
+            "homepage": "http://github.com/mpociot/teamwork",
+            "keywords": [
+                "Invite",
+                "Teams"
+            ],
+            "support": {
+                "issues": "https://github.com/mpociot/teamwork/issues",
+                "source": "https://github.com/mpociot/teamwork"
+            },
+            "time": "2022-02-16T22:36:43+00:00"
         },
         {
             "name": "namshi/jose",

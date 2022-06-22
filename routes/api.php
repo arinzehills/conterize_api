@@ -8,6 +8,9 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\FreelancersController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Teamwork\TeamController;
+use App\Http\Controllers\MyTeamMemberController;
+use App\Http\Controllers\EmailController;
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
@@ -18,6 +21,15 @@ Route::post('/updatePassword',[UserController::class, 'updatePassword']);
 Route::post('/forgotPassword',[UserController::class, 'forgotPassword']);
 Route::post('/resetPassword', [UserController::class, 'resetPassword'])->
                                             name('password.reset');
+//this is for user teams
+Route::post('/getUserTeams', [TeamController::class, 'index']);
+Route::post('/addTeam', [TeamController::class, 'store']);
+Route::post('/members', [MyTeamMemberController::class, 'show']);
+Route::post('/deleteMember', [MyTeamMemberController::class, 'destroy']);
+Route::post('/sendInvite', [MyTeamMemberController::class, 'invite']);
+Route::post('/resendInvite', [MyTeamMemberController::class, 'resendInvite']);
+Route::post('/deleteInvite', [MyTeamMemberController::class, 'denyInvite']);
+Route::post('acceptInvite', [MyTeamMemberController::class, 'acceptInvite'])->name('accept_invite');
 
 /* for company api */
 Route::post('/addCompany', [CompanyController::class, 'addCompany']);
@@ -43,6 +55,8 @@ Route::post('/subscribe', [PaymentController::class, 'subscribe']);
 Route::post('/createPlan', [PaymentController::class, 'createPlan']);
 Route::post('/retrievePlans', [PaymentController::class, 'retrievePlans']);
 
+Route::get("send-email", [EmailController::class, "sendEmail"]);
+//this is for 
 /*
 |--------------------------------------------------------------------------
 | API Routes
