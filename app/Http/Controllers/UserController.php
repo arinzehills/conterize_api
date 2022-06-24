@@ -43,7 +43,7 @@ class UserController extends Controller {
          }else{
             $created=User::create($request->all());
 
-            $request->request->add(['password'=>$plainPassword]);
+            $request->request->add(['password'=>$plainPassword]);//this converts back bycrypted to normal plain password so the user can login
         //login now..
         return $this->login($request);
          }
@@ -72,7 +72,8 @@ class UserController extends Controller {
         $user->attachTeam($team);
 
         return response()->json([
-            'success'=>true,            
+            'success'=>true,      
+            'message'=>'user logged in successfully!',   
             'token'=> $jwt_token,
             'user'=> $user,
         ], 422);
