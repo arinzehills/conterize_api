@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Carbon\Carbon;
+use Cache;
 
 use JWTAuth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -45,7 +47,7 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
         'password',
         'remember_token',
     ];
-
+    protected $appends = ['online_status'];
     /**
      * The attributes that should be cast.
      *
@@ -54,7 +56,27 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
     protected $casts = [
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime:d/m/Y',
+        // 'last_seen' => Carbon\Carbon::parse(''),
     ];
+    public function getLastSeenAttribute($value){
+        return Carbon::parse($value)->diffForHumans();//this converts lastseen to like 10sec ago
+    }
+    protected function OnlineStatus (): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucfirst($value),
+        );
+    }
+    public function getOnlineStatusAttribute($value){
+        $last_seen=$this->getLastSeenAttribute($value);
+        if (Cache::has('user-is-online-'.$this->getKey())){
+            // Carbon::parse($last_seen)->diffForHumans();
+        return 'Online';
+    }
+        else{
+        // Carbon::parse($last_seen)->diffForHumans();
+        return 'Offline';}//this converts lastseen to like 10sec ago
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

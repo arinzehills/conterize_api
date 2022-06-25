@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Cache;
 use Auth;
+use Carbon\Carbon;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Mail;
@@ -23,6 +25,24 @@ class UserController extends Controller {
     {
         $this->auth = $auth;
     }
+    public function index(Request $request){
+        $users = User::all();
+        foreach ($users as $user) {
+            if (Cache::has('user-is-online-' . $user->id))
+                echo $user->name . " is online. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
+            else
+                echo $user->name . " is offline. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
+        }
+            // $users=User::
+            // // All()
+            // // select('*')
+            //     orderBy('last_seen','Desc')
+            //         ->whereNotNull('last_seen')
+            //         ->get()
+            //         ;
+
+                    return $users;
+        }
     public function register(Request $request){
         $email=$request->email;
         $plainPassword=$request->password;
@@ -58,6 +78,7 @@ class UserController extends Controller {
             return response()->json([
                 'message'=> 'Invalid email or password',
                 'success'=>false,
+                'token'=>null
             ], 401);
         }
         //get the user

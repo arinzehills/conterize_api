@@ -12,8 +12,10 @@ use App\Http\Controllers\Teamwork\TeamController;
 use App\Http\Controllers\MyTeamMemberController;
 use App\Http\Controllers\EmailController;
 
+Route::get('/getAllUsers', [UserController::class, 'index']);
+Route::get('/getCurrentUser', [UserController::class, 'getCurrentUser'])->middleware('last-seen');
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'login'])->middleware('last-seen');
 Route::get('/user',[UserController::class, 'getCurrentUser']);
 Route::post('/update', [UserController::class, 'update']);
 Route::get('/logout', [UserController::class, 'logout']);
@@ -29,7 +31,7 @@ Route::post('/deleteMember', [MyTeamMemberController::class, 'destroy']);
 Route::post('/sendInvite', [MyTeamMemberController::class, 'invite']);
 Route::post('/resendInvite', [MyTeamMemberController::class, 'resendInvite']);
 Route::post('/deleteInvite', [MyTeamMemberController::class, 'denyInvite']);
-Route::post('acceptInvite', [MyTeamMemberController::class, 'acceptInvite'])->name('accept_invite');
+Route::post('acceptInvite', [MyTeamMemberController::class, 'acceptInvite'])->middleware('last-seen')->name('accept_invite');
 
 /* for company api */
 Route::post('/addCompany', [CompanyController::class, 'addCompany']);

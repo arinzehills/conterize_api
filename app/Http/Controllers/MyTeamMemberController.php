@@ -22,15 +22,16 @@ class MyTeamMemberController extends Controller
     {
         $teamModel = config('teamwork.team_model');
         // $team_members = $teamModel::find($request->id);
-        $team_members = $teamModel::with(['users','invites'])->where(['id'=>$request->id])->get();
+        $team_members = $teamModel::with(['users','invites'])
+        ->where(['id'=>$request->id])->get();
         
-
         if (is_null($team_members)) {
             return response()->json([
                 'status' => 'ERROR',
                 'error' => '404 not found'
             ], 404);
         }
+        // $team_members->;
         return $team_members;
         // return $team_members->users;
     }
@@ -210,7 +211,8 @@ class MyTeamMemberController extends Controller
         if (! $invite) {
             return response()->json([
                 'success' => false,
-                'error' => '404 not found'
+                'error' => '404 not found',
+                'token'=>''
             ], 404);
         }
         return $this->SignUpInvitee($request,$invite);
@@ -263,6 +265,7 @@ class MyTeamMemberController extends Controller
             return response()->json([
                 'success'=>false,
                 'user'=>$user,
+                'token'=>'',
                 'message'=>'No registerd user',
                      ], 422);
             }
