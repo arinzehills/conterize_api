@@ -119,7 +119,7 @@ class MyTeamMemberController extends Controller
         $user_id=$request->user()->getKey();
 
         if (! Teamwork::hasPendingInvite($request->email, $team)) {
-            Teamwork::inviteToTeam($request,$user_id, $team, function ($invite) {//i added user_id to this function as param but did not use it
+            Teamwork::inviteToTeam($request, $team, function ($invite) {//i added user_id to this function as param but did not use it
                 Mail::send('teamwork.emails.invite', ['team' => $invite->team, 'invite' => $invite], function ($m) use ($invite) {
                     $m->to($invite->email)->subject('Invitation to join team '.$invite->team->name);
                 });
