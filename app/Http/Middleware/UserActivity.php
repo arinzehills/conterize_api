@@ -35,8 +35,9 @@ class UserActivity
         // ...this function runs at the end of every request 
         
         $responseContent=$response->content();
+        $responseContent=$response->content();
         $responseContent = json_decode($responseContent, true);
-        $token=$responseContent['token']?? null;
+        $token=$responseContent['token'] ?? null;
         $request->request->add(['token'=>$token]);//this converts back bycrypted to normal plain password so the user can login
         
         $user=app('App\Http\Controllers\UserController')->getCurrentUser($request);
