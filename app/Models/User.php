@@ -110,4 +110,12 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
         {
             return $this->hasMany(Request::class);
         }
+        public function admin()
+        {
+            return $this->hasMany(Admin::class);
+        }
+        public function contentCreators()
+        {
+            return $this->hasMany(ContentCreators::class);
+        }
 }

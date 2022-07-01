@@ -29,4 +29,8 @@ class Request extends Model
             //return $this->hasMany(Order::class);
             return $this->hasOne(RequestDetail::class);
         }
+        public function deliveries()
+        {
+            return $this->hasMany(Deliveries::class);
+        }
 }

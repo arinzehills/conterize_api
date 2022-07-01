@@ -62,7 +62,9 @@ class RequestController extends Controller
         // $companies = User::join('companies', 'users.id', '=', 'companies.user_id')
         //        ->get();
             return 
-            RequestModel::all();
+            RequestModel::
+            orderBy('created_at','desc')->
+            get();
     }
     public function getUserRequests(Request $request){
         $id=$request->user_id;

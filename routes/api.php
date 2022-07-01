@@ -11,6 +11,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Teamwork\TeamController;
 use App\Http\Controllers\MyTeamMemberController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\DeliveriesController;
 
 Route::get('/getAllUsers', [UserController::class, 'index']);
 Route::get('/getCurrentUser', [UserController::class, 'getCurrentUser'])->middleware('last-seen');
@@ -45,12 +46,16 @@ Route::post('/addRequest', [RequestController::class, 'addRequest']);
 Route::post('/getAllRequest', [RequestController::class, 'getAllRequest']);
 Route::post('/getUserRequests', [RequestController::class, 'getUserRequests']);
 Route::post('/getUserRequestDetail', [RequestController::class, 'getUserRequestDetail']);
+// deliveries apis
+Route::post('/deliver', [DeliveriesController::class, 'deliver']);
+Route::post('/getRequestDeliveries', [DeliveriesController::class,'getRequestDeliveries']);
 
 /*admin correct request */
 Route::post('/assignFreelancer', [FreelancersController::class, 'assignFreelancer']);
 
 
 // this is for freelancers 
+Route::post('/addFreelancer', [FreelancersController::class, 'addFreelancer'])->middleware('admin-activity');
 Route::post('/getAllFreelancers', [FreelancersController::class, 'getAllFreelancers']);
 //for subscription
 Route::post('/subscribe', [PaymentController::class, 'subscribe']);

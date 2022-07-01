@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ContentCreators;
 use Cache;
 use Auth;
 use Carbon\Carbon;
@@ -62,7 +63,9 @@ class UserController extends Controller {
             return $erros;
          }else{
             $created=User::create($request->all());
-
+            if($request->user_type=='content_creator'){
+                $created=ContentCreators::create(['user_id'=>$created->getKey(),]+$request->all());
+            }
             $request->request->add(['password'=>$plainPassword]);//this converts back bycrypted to normal plain password so the user can login
         //login now..
         return $this->login($request);
@@ -142,7 +145,7 @@ class UserController extends Controller {
 
     public function update(Request $request){
         $user=$this->getCurrentUser($request);
-        echo $user; 
+        // echo $user; 
         $data=$request->all();
         if(!$user){
             return response()->json([
