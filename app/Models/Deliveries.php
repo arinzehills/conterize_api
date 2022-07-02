@@ -11,7 +11,13 @@ class Deliveries extends Model
     protected $fillable = [
         'request_id',
         'senders_id',
-        'comments'
+        'comments',
+        'uploads_materials',
+        'uploaded_file_urls',
+    ];
+    protected $casts = [
+        'uploads_materials'=>'array',
+        'uploaded_file_urls'=>'array',
     ];
     public function requests()
     {

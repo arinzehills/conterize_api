@@ -46,9 +46,12 @@ Route::post('/addRequest', [RequestController::class, 'addRequest']);
 Route::post('/getAllRequest', [RequestController::class, 'getAllRequest']);
 Route::post('/getUserRequests', [RequestController::class, 'getUserRequests']);
 Route::post('/getUserRequestDetail', [RequestController::class, 'getUserRequestDetail']);
+
 // deliveries apis
 Route::post('/deliver', [DeliveriesController::class, 'deliver']);
 Route::post('/getRequestDeliveries', [DeliveriesController::class,'getRequestDeliveries']);
+Route::post('/acceptDelivery', [DeliveriesController::class,'acceptDelivery']);
+Route::post('/requestRevision', [DeliveriesController::class,'requestRevision']);
 
 /*admin correct request */
 Route::post('/assignFreelancer', [FreelancersController::class, 'assignFreelancer']);
