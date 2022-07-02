@@ -26,7 +26,8 @@ class RequestController extends Controller
             //  create for detail table of the request
              $filenames=[];
              $create_request= RequestModel::create([
-                            'submitted_by'=>$submitted_by
+                            'submitted_by'=>$submitted_by,
+                            'status'=>'active'
                             ]+$request->all());//normal request table
              $req_id=$create_request->id;
              if($request->hasFile('supporting_materials')){
