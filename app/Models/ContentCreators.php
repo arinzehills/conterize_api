@@ -14,6 +14,7 @@ class ContentCreators extends Model
         'ongoing_projects',
         'niche',
         'role_type',
+        'activated',
     ];
     
     public function user()
