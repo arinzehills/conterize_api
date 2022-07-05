@@ -6,6 +6,7 @@ use App\Models\RequestDetail;
 use Validator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class RequestController extends Controller
 {
@@ -25,6 +26,7 @@ class RequestController extends Controller
             $submitted_by=$date->format("d/m/Y");
             //  create for detail table of the request
              $filenames=[];
+             $uploadedFileUrls=[];  
              $create_request= RequestModel::create([
                             'submitted_by'=>$submitted_by,
                             'status'=>'active'
@@ -35,9 +37,11 @@ class RequestController extends Controller
                  foreach($request->file('supporting_materials') as $file) {
                              $fileext = $file->getClientOriginalExtension();
                              $filename = $file->getClientOriginalName();
-                             $file->move('uploads/', $filename);
-                             array_push($filenames,$filename);
-
+                            //  $file->move('uploads/', $filename);
+                            //  array_push($filenames,$filename);
+                            $uploadedFileUrl = Cloudinary::uploadFile($file->getRealPath())->getSecurePath();
+                            array_push($uploadedFileUrls,$uploadedFileUrl);
+                            array_push($filenames,$filename);
                             }
              }
 
@@ -45,8 +49,8 @@ class RequestController extends Controller
                         RequestDetail::create(
                             ['request_id'=>$req_id,
                             'supporting_materials'=>$filenames,
+                            'uploaded_file_urls'=>$uploadedFileUrls,
                             'submitted_by'=>$submitted_by,
-                            
                             ]+
                             $request->all()
                         );

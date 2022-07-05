@@ -16,16 +16,19 @@ class RequestDetail extends Model
         'request_type',
         'category',
         'quantity',
+        'size',
         'reference_links',
         'description',
         'writing_topics',
         'supporting_info',
         'supporting_materials',
+        'uploaded_file_urls',
         'video_format',
         'overview',
     ];
     protected $casts = [
         'supporting_materials'=>'array',
+        'uploaded_file_urls'=>'array',
         'reference_links' => 'array',
         'writing_topics'=>'array'
     ];
