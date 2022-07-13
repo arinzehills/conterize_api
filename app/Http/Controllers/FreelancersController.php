@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendToFreelacer;
+use App\Mail\AssignToFreelancerMail;
 use JWTAuth;
 use Auth;
 
@@ -76,14 +77,27 @@ class FreelancersController extends Controller
     }
     public function assignFreelancer(Request $request){
         $request_id=$request->id;
-        $freelancer_name=$request->freelancer_name;
+        $freelancer_id=$request->user_id;
+        $freelancer_name=$request->firstname;
+        $freelancer=User::find($freelancer_id);
         $user_request =  RequestModel::find($request->id);
         $user_request ->assign_to=$freelancer_name;
+        $user_request ->assign_to_id=$freelancer_id;
         $user_request->save();
-
+        $request_name=$user_request->request_name;
+        
+        $sendmail=Mail::to($freelancer->email)->send(new AssignToFreelancerMail($request_name));
+            if(Mail::failures() != 0) {
+                return response()->json([
+                    'success' => true, 
+                    'message' => 'Success has been assigned successfully!',
+                    'user_request'=> $user_request
+                    ],
+                    200);
+            }
         return response()->json([
-            'success' => true, 
-            'message' => 'Password has been updated successfully!',
-           'user_request'=> $user_request]);
+            'success'=>false,      
+            'message'=>"Success! Your E-mail has been sent.",
+        ], 200);
     }
 }

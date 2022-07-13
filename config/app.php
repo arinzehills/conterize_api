@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Jenssegers\Mongodb\MongodbServiceProvider::class,//i added this for mongodb
         /*
          * Package Service Providers...
          */
@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         // CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
-
+        
     ],
 
     /*

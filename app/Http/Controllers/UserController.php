@@ -64,7 +64,7 @@ class UserController extends Controller {
          }else{
             $created=User::create($request->all());
             if($request->user_type=='content_creator'){
-                $created=ContentCreators::create(['user_id'=>$created->getKey(),]+$request->all());
+                $created=ContentCreators::create(['user_id'=>$created->getKey(),'activated'=>'no',]+$request->all());
             }
             $request->request->add(['password'=>$plainPassword]);//this converts back bycrypted to normal plain password so the user can login
         //login now..
@@ -87,10 +87,10 @@ class UserController extends Controller {
         //get the user
         $user=Auth::user();
 
-        //attach/update user automatically to a team
+        // attach/update user automatically to a team
         $teamModel = config('teamwork.team_model');
         $team = $teamModel::updateOrCreate(['id'=>$user->id],[
-            'name' => $user->firstname,
+            'name' => $user->firstname ,
             'owner_id' => $user->getKey(),
         ]);
         $user->attachTeam($team);

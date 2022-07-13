@@ -13,6 +13,7 @@ class Request extends Model
         'request_name',
         'category',
         'assign_to',
+        'assign_to_id',
         'submitted_by',
         'status',
         'is_draft',

@@ -18,11 +18,12 @@ class PaymentController extends Controller
     public function createPlan(Request $request){
         // die($this->stripe);
         $data=$request->all();
-        $data['slug']=strtolower( $data['plan_name']);
+        $data['slug']=strtolower($data['plan_name']);
         $data['stripe_plan']= $data['plan_name'];
         
         
-        $price= $data['price']*100;
+        // $price= $request->price *100;
+        // $price= $data['price']*100;
 
         // create product on dashboard
         // $stripeProduct=$this->stripe->products->create([
@@ -69,7 +70,11 @@ class PaymentController extends Controller
             $payment=$user->newSubscription(
                 $plan->plan_name,$plan->stripe_price_id,
             )->create($request->payment_method_id);
-
+            if($payment){
+                $user->plan=$request->plan_name;
+                $user->payment_status='paid';
+                $user->save();  
+            }
             // $payment=$payment->asStripePaymentIntent();
             return response()->json([
                 'success' => true, 

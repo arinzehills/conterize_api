@@ -15,6 +15,7 @@ return [
     |
     */
 
+    // 'default' => env('DB_CONNECTION', 'mongodb'),//ArinzeHills changed this to mongodb
     'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
@@ -89,6 +90,12 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+        ],
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => env('DB_URI', 'mongodb+srv://arinzehills:H12lar1..@cluster0.gvsyxw0.mongodb.net/?retryWrites=true&w=majority'),
+            'database' => 'myappdb',
         ],
 
     ],

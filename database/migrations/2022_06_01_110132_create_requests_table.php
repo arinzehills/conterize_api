@@ -21,6 +21,7 @@ class CreateRequestsTable extends Migration
             $table->string('request_name')->nullable();
             $table->string('category')->nullable();
             $table->string('assign_to')->nullable();
+            $table->string('assign_to_id')->nullable();
             $table->string('status')->nullable();//active, archived or underreview
             $table->string('is_draft')->nullable();//active, archived or underreview
             $table->string('submitted_by')->nullable();//which customer made the request

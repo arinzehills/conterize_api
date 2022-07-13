@@ -31,6 +31,7 @@ class CreateRequestDetailsTable extends Migration
             $table->json('writing_topics')->nullable();
             $table->string('supporting_info')->nullable();
             $table->json('supporting_materials')->nullable();
+            $table->json('uploaded_file_urls')->nullable();
             $table->string('video_format')->nullable();//this is for only video request
             $table->string('overview')->nullable();//this is for only video request
             $table->timestamps();

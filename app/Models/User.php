@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -19,8 +20,12 @@ use Mpociot\Teamwork\Traits\UserHasTeams;
 
 class User extends Authenticatable implements JWTSubject,CanResetPassword
 {
-    use HasApiTokens, HasFactory, Notifiable,Billable,UserHasTeams;
-
+    use HasApiTokens,
+     HasFactory, 
+     Notifiable,Billable,UserHasTeams;
+    
+    //  protected $connection='mongodb';
+    //  protected $collection='users';
     /**
      * The attributes that are mass assignable.
      *
@@ -34,6 +39,8 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
         'phone',
         'user_type',
         'role_type',
+        'payment_status',
+        'plan',
         'nationality',
         'last_seen',
     ];

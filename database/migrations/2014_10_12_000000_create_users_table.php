@@ -20,8 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('nationality')->nullable();
-            $table->string('user_type')->nullable();
+            $table->string('user_type')->nullable();//admin, content_creator, and business owner
             $table->string('role_type')->nullable();
+            $table->string('payment_status')->default('unpaid')->nullable();
+            $table->string('plan')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedInteger('isProfileUpdated')->nullable();

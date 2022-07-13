@@ -23,7 +23,7 @@ class CreateDeliveriesTable extends Migration
                     ->on('users');
             $table->string('comments')->nullable();//this is the comment/message
             $table->json('uploads_materials')->nullable();
-
+            $table->json('uploaded_file_urls')->nullable();
             $table->timestamps();
         });
     }
