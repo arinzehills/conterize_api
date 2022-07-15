@@ -72,10 +72,35 @@ class FreelancersController extends Controller
     public function getAllFreelancers(Request $request){
         $freelancers=User::Join('content_creators', 'users.id', '=', 'content_creators.user_id')
             ->where('user_type','content_creator')
+            // ->where('activated','yes')
             ->get();
             return $freelancers;
     }
-   
+    public function getApprovedFreelancers(Request $request){
+        $freelancers=User::Join('content_creators', 'users.id', '=', 'content_creators.user_id')
+            ->where('user_type','content_creator')
+            ->where('activated','yes')
+            ->get();
+            return $freelancers;
+    }
+    public function getUnApprovedFreelancers(Request $request){
+        $freelancers=User::Join('content_creators', 'users.id', '=', 'content_creators.user_id')
+            ->where('user_type','content_creator')
+            ->where('activated','no')
+            ->get();
+            return $freelancers;
+    }
+    public function approveFreelancer(Request $request){
+        $freelancer_id=$request->user_id;
+        $freelancer=User::find($freelancer_id);
+        $freelancer->activated='yes';
+        $freelancer->save();
+        return response()->json([
+            'success' => true, 
+            'message' => 'Success,Freelancer has been approved successfully!',
+            ],
+            200);
+    }
     public function assignFreelancer(Request $request){
         $request_id=$request->id;
         $freelancer_id=$request->user_id;

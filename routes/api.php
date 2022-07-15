@@ -60,7 +60,10 @@ Route::post('/assignFreelancer', [FreelancersController::class, 'assignFreelance
 // this is for freelancers 
 Route::post('/getAFreelancer', [FreelancersController::class, 'getAFreelancer']);
 Route::post('/addFreelancer', [FreelancersController::class, 'addFreelancer'])->middleware('admin-activity');
+Route::post('/approveFreelancer', [FreelancersController::class, 'approveFreelancer'])->middleware('admin-activity');
 Route::post('/getAllFreelancers', [FreelancersController::class, 'getAllFreelancers']);
+Route::post('/getApprovedFreelancers', [FreelancersController::class, 'getApprovedFreelancers']);
+Route::post('/getUnApprovedFreelancers', [FreelancersController::class, 'getUnApprovedFreelancers']);
 //for subscription
 Route::post('/subscribe', [PaymentController::class, 'subscribe']);
 Route::post('/createPlan', [PaymentController::class, 'createPlan']);
