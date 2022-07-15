@@ -75,6 +75,7 @@ class FreelancersController extends Controller
             ->get();
             return $freelancers;
     }
+   
     public function assignFreelancer(Request $request){
         $request_id=$request->id;
         $freelancer_id=$request->user_id;
@@ -99,5 +100,12 @@ class FreelancersController extends Controller
             'success'=>false,      
             'message'=>"Success! Your E-mail has been sent.",
         ], 200);
+    }
+    public function getAFreelancer(Request $request){
+        $freelancer=User::Join('content_creators', 'users.id', '=', 'content_creators.user_id')
+            ->where('user_type','content_creator')
+            ->where('user_id', $request->user_id)
+            ->get();
+            return $freelancer[0];
     }
 }

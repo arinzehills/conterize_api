@@ -58,6 +58,7 @@ Route::post('/assignFreelancer', [FreelancersController::class, 'assignFreelance
 
 
 // this is for freelancers 
+Route::post('/getAFreelancer', [FreelancersController::class, 'getAFreelancer']);
 Route::post('/addFreelancer', [FreelancersController::class, 'addFreelancer'])->middleware('admin-activity');
 Route::post('/getAllFreelancers', [FreelancersController::class, 'getAllFreelancers']);
 //for subscription

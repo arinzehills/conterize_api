@@ -68,6 +68,10 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
     public function getLastSeenAttribute($value){
         return Carbon::parse($value)->diffForHumans();//this converts lastseen to like 10sec ago
     }
+    // public function getUserTypeAttribute($value){
+        
+    //     return $value;//this converts lastseen to like 10sec ago
+    // }
     protected function OnlineStatus (): Attribute
     {
         return Attribute::make(
@@ -104,7 +108,6 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
              'message' => 'Token is required'
             ],422);
         }
-         
         $user = JWTAuth::parseToken()->authenticate();
         return $user;
      }
