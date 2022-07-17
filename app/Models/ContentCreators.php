@@ -13,13 +13,13 @@ class ContentCreators extends Model
         'total_completed',
         'ongoing_projects',
         'niche',
-        'role_type',
+        // 'role_type',
         'activated',
     ];
     
     public function user()
     {
-       // return $this->belongsTo(User::class, 'user_id');
-       return $this->belongsTo(User::class, 'user_id');
+    //    return $this->belongsTo(User::class, 'user_id');
+       return $this->belongsTo(User::class);
     }
 }

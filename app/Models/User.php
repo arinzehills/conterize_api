@@ -107,7 +107,7 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
             return response()->json([
              'message' => 'Token is required'
             ],422);
-        }
+        }   
         $user = JWTAuth::parseToken()->authenticate();
         return $user;
      }
@@ -124,8 +124,8 @@ class User extends Authenticatable implements JWTSubject,CanResetPassword
         {
             return $this->hasMany(Admin::class);
         }
-        public function contentCreators()
+        public function content_creators()
         {
-            return $this->hasMany(ContentCreators::class);
+            return $this->hasOne(ContentCreators::class);
         }
 }

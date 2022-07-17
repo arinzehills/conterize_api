@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\ContentCreators;
 use App\Models\Request as RequestModel;
 use Validator;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class FreelancersController extends Controller
             return $erros;
             }else{
             $created=User::create($request->all());
+            $creator=ContentCreators::create(['user_id'=>$created->getKey(),'activated'=>'yes',]+$request->all());
             $request->request->add(['password'=>$plainPassword]);//this converts back bycrypted to normal plain password so the user can login
             //login now..
             $input =$request->only('email','password');
@@ -92,9 +94,9 @@ class FreelancersController extends Controller
     }
     public function approveFreelancer(Request $request){
         $freelancer_id=$request->user_id;
-        $freelancer=User::find($freelancer_id);
-        $freelancer->activated='yes';
-        $freelancer->save();
+        $freelancer=ContentCreators::where('user_id',$freelancer_id)
+        ->update(['activated'=>'yes']);
+
         return response()->json([
             'success' => true, 
             'message' => 'Success,Freelancer has been approved successfully!',
