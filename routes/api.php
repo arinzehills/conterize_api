@@ -45,6 +45,7 @@ Route::post('/getAllCompanies', [CompanyController::class, 'getAllCompanies']);
 Route::post('/addRequest', [RequestController::class, 'addRequest']);
 Route::post('/getAllRequest', [RequestController::class, 'getAllRequest']);
 Route::post('/getUserRequests', [RequestController::class, 'getUserRequests']);
+Route::post('/getUserTotalRequests', [RequestController::class, 'getUserTotalRequests']);
 Route::post('/getUserRequestDetail', [RequestController::class, 'getUserRequestDetail']);
 
 // deliveries apis

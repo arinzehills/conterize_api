@@ -86,13 +86,75 @@ class RequestController extends Controller
                 orderBy('created_at','desc')
                 ->where('user_id',$id)
                 ->get();
+                $draft_requests=RequestModel::
+                orderBy('created_at','desc')
+                ->where('user_id',$id)
+                ->where('is_draft','yes')
+                ->get();
+                $totalRequests=RequestModel::
+                where('user_id',$id)
+                ->count();
+                $graphics=RequestModel::
+                where('category','graphics')
+                ->where('user_id',$id)
+                ->count();
+                $video=RequestModel::
+                where('category','video')
+                ->where('user_id',$id)
+                ->count();
+                $contentWriting=RequestModel::
+                where('category','content')
+                ->where('user_id',$id)
+                ->count();
                 return response()->json([
                     'success'=>true,
                     'message'=>'Your request has been placed successfully',
-                    'requests'=>$requests
+                    'requests'=>$requests,
+                    'draft'=>$draft_requests,
+                    'total_request'=>$totalRequests,
+                    'graphics'=>$graphics,
+                    'content_writing'=>$contentWriting,
+                    'video'=>$video,
                 ]);
          }
         }
+    public function getUserTotalRequests(Request $request){
+        $id=$request->user_id;
+        $rules = ['user_id'=>'required:requests,user_id'];
+        $validator = Validator::make($request->all(), $rules);
+    
+        if ($validator->fails()) {
+            // handler errors
+            $erros = $validator->errors();
+            // echo $erros;
+            return $erros;
+         }else{
+                $totalRequests=RequestModel::
+                where('user_id',$id)
+                ->count();
+                $graphics=RequestModel::
+                where('category','graphics')
+                ->where('user_id',$id)
+                ->count();
+                $video=RequestModel::
+                where('category','video')
+                ->where('user_id',$id)
+                ->count();
+                $contentWriting=RequestModel::
+                where('category','content')
+                ->where('user_id',$id)
+                ->count();
+                return response()->json([
+                    'success'=>true,
+                    'message'=>'Your request has been placed successfully',
+                    'total_request'=>$totalRequests,
+                    'graphics'=>$graphics,
+                    'content_writing'=>$contentWriting,
+                    'video'=>$video,
+                ]);
+         }
+        }
+
         public function getUserRequestDetail(Request $request){
             $user_id=$request->user_id;
             $request_id=$request->request_id;
