@@ -108,11 +108,14 @@ class CompanyController extends Controller
          }
     }
     public function getAllCompanies(Request $request){
-        $companies = User::
-        where('user_type','business_user')->
-        leftJoin('companies', 'users.id', '=', 'companies.user_id')
-                
-               ->get();
+        // $companies = User::
+        //             where('user_type','business_user')->
+        //             leftJoin('companies', 'users.id', '=', 'companies.user_id')
+        //             ->get();
+                    $companies = User::
+                    where('user_type','business_user')->
+                    // leftJoin('companies', 'users.id', '=', 'companies.user_id')
+                    get();
 
         return
          $companies;

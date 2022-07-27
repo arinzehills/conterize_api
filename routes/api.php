@@ -19,6 +19,7 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login'])->middleware('last-seen');
 Route::get('/user',[UserController::class, 'getCurrentUser']);
 Route::post('/update', [UserController::class, 'update']);
+Route::post('/updatePaymentStatus', [UserController::class, 'updatePaymentStatus']);
 Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/updatePassword',[UserController::class, 'updatePassword']);
 Route::post('/forgotPassword',[UserController::class, 'forgotPassword']);

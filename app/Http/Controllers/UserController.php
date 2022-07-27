@@ -167,6 +167,19 @@ class UserController extends Controller {
             'user' =>$user
         ]);
     }
+    public function updatePaymentStatus(Request $request){
+        // echo($request->id);
+        $user =  User::find($request->id);
+        // $data=$request->all();
+        $user->payment_status='paid';
+       $user->save();
+        
+        return response()->json([
+            'success' => true, 
+            'message' => 'Information has been updated successfully!',
+            'user' =>$user
+        ]);
+    }
     public function forgotPassword(Request $request){
         // $request->validate(['email' => 'required|email']);
         
