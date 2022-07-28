@@ -30,14 +30,22 @@ class AdminSeeder extends Seeder
         //     'user_type' => 'admin',
         //     'role_type' => 'admin',
         // ]);
-        
-        \App\Models\User::table('plans')->insert([
+         \App\Models\User::create([
             'firstname' => 'achills',
-            'lastname' => 'tech',
+            'lastname' => 'Chris',
             'email' => 'developer@conterize.com',
             'password'=>strtolower('Scale'),
             'user_type' => 'admin',
             'role_type' => 'developer',
         ]);
+        
+        // \App\Models\User::table('plans')->insert([
+        //     'firstname' => 'achills',
+        //     'lastname' => 'tech',
+        //     'email' => 'developer@conterize.com',
+        //     'password'=>strtolower('Scale'),
+        //     'user_type' => 'admin',
+        //     'role_type' => 'developer',
+        // ]);
     }
 }
