@@ -22,14 +22,14 @@ class AdminSeeder extends Seeder
         //     'user_type' => 'admin',
         //     'role_type' => 'admin',
         // ]);
-        \App\Models\User::create([
-            'firstname' => 'Napolean',
-            'lastname' => 'Okugbe',
-            'email' => 'admin@conterize.com',
-            'password'=>bcrypt('123'),
-            'user_type' => 'admin',
-            'role_type' => 'admin',
-        ]);
+        // \App\Models\User::create([
+        //     'firstname' => 'Napolean',
+        //     'lastname' => 'Okugbe',
+        //     'email' => 'admin@conterize.com',
+        //     'password'=>bcrypt('123'),
+        //     'user_type' => 'admin',
+        //     'role_type' => 'admin',
+        // ]);
         
         \App\Models\User::table('plans')->insert([
             'firstname' => 'achills',
