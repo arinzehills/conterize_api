@@ -22,7 +22,7 @@ class EmailController extends Controller
         Mail::to($to_email)->send(new FirstEmail);
 
         if(Mail::failures() != 0) {
-            return "<p> Success! Your E-mail has been sent.</p>";
+            return "<p> Success! Your E-mail has been sent to $to_email.</p>";
         }
 
         else {

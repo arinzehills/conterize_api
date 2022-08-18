@@ -28,6 +28,6 @@ class FirstEmail extends Mailable
      */
     public function build()
     {
-        return $this->from("admin@conterize.com")->view('email-template');
+        return $this->from("hello@conterize.com")->view('email-template');
     }
 }
