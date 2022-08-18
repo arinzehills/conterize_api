@@ -41,10 +41,10 @@ class PlansSeeder extends Seeder
         //     // 'stripe_price_id'=>'price_1L8jtVEL7CF34u9Qf2Avapok'//mine
         // ]);
         DB::table('plans')->insert([
-            'plan_name' => 'Test',
-            'slug'=>strtolower('Test'),
+            'plan_name' => 'Testing',
+            'slug'=>strtolower('Testing'),
             'price' => '10',
-            'stripe_plan' =>'Scale',
+            'stripe_plan' =>'Testing',
             'stripe_price_id'=>'price_1LY6MhHbHAd0T9U9fDdfCEcy'//for life
             // 'stripe_price_id'=>'price_1LMeM8HbHAd0T9U9dgo8xU9x'//for test
             // 'stripe_price_id'=>'price_1L8jtVEL7CF34u9Qf2Avapok'//mine
