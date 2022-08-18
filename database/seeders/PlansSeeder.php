@@ -45,7 +45,7 @@ class PlansSeeder extends Seeder
             'slug'=>strtolower('Testing'),
             'price' => '10',
             'stripe_plan' =>'Testing',
-            'stripe_price_id'=>'price_1LY6MhHbHAd0T9U9fDdfCEcy'//for life
+            'stripe_price_id'=>'price_1LY6X4HbHAd0T9U9SbNmRPJr'//for life
             // 'stripe_price_id'=>'price_1LMeM8HbHAd0T9U9dgo8xU9x'//for test
             // 'stripe_price_id'=>'price_1L8jtVEL7CF34u9Qf2Avapok'//mine
         ]);
