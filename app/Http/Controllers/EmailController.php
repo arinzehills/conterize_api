@@ -22,11 +22,17 @@ class EmailController extends Controller
         Mail::to($to_email)->send(new FirstEmail);
 
         if(Mail::failures() != 0) {
-            return "<p> Success! Your E-mail has been sent to $to_email.</p>";
+            return response()->json([
+                'success'=>true,      
+                'message'=>"Success! Demo request has been sent.",
+            ], 200);
         }
 
         else {
-            return "<p> Failed! Your E-mail has not sent.</p>";
+            return response()->json([
+                'success'=>false,      
+                'message'=>"Failed! Your E-mail has not sent.", 
+            ], 404);
         }
     }
 }

@@ -17,6 +17,19 @@
                 <p> You have been successfully added as a content creator at conterize <br> </p>
                 <p>You can login using these credentials </p>
                 <br/>
+                <a class='button' href={{env('MAIL_DOMAIN_ADDRESS')."/login"
+                                        .'?token='.$invite->accept_token
+                                        .'&firstname='.$invite->firstname
+                                        .'&lastname='.$invite->lastname
+                                        .'&team_name='.$invite->team->name
+                                        .'&email='.$invite->email
+                                        }}
+                    style="color:white;background: rgb(146, 3, 255);
+                        border-radius: 10px;padding:1rem;
+                        text-decoration: none;
+                        border: none;">Login
+                </a>
+                <br />
                 <b>Email:<b> {{$email_to}}
                 <br/>
                 <b>Your Password:<b> {{$plainPassword}}

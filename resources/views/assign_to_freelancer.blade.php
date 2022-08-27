@@ -21,7 +21,7 @@
                 <br/>
                 <br/>
                 <br/>
-                <a class='button' href={{"http://localhost:3000/dashboard/request"}}
+                <a class='button' href={{env('MAIL_DOMAIN_ADDRESS')."/dashboard/request"}}
                     style="color:white;background: rgb(146, 3, 255);
                         border-radius: 10px;padding:1rem;
                         text-decoration: none;
