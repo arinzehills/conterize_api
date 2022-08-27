@@ -17,7 +17,7 @@ class EmailController extends Controller
     }
     public function sendEmail() {
 
-        $to_email = "arinzehill@gmail.com";
+        $to_email = "achills.business@gmail.com";
 
         Mail::to($to_email)->send(new FirstEmail);
 

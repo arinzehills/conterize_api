@@ -12,6 +12,7 @@ use App\Http\Controllers\Teamwork\TeamController;
 use App\Http\Controllers\MyTeamMemberController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\DeliveriesController;
+use App\Http\Controllers\DemoRequestController;
 
 Route::get('/getAllUsers', [UserController::class, 'index']);
 Route::get('/getCurrentUser', [UserController::class, 'getCurrentUser'])->middleware('last-seen');
@@ -70,6 +71,8 @@ Route::post('/getUnApprovedFreelancers', [FreelancersController::class, 'getUnAp
 Route::post('/subscribe', [PaymentController::class, 'subscribe']);
 Route::post('/createPlan', [PaymentController::class, 'createPlan']);
 Route::post('/retrievePlans', [PaymentController::class, 'retrievePlans']);
+//demo request
+Route::get("/requestDemo", [DemoRequestController::class, "requestDemo"]);
 
 Route::get("/send-email", [EmailController::class, "sendEmail"]);
 //this is for 
