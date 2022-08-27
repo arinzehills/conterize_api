@@ -24,7 +24,7 @@
                     enables content creators to request contents, such as articles, graphics and videos
                 </p>
                 <p> Enjoy! </p>
-                <a class='button' href={{"www.conterize.com/acceptInvite"
+                <a class='button' href={{env('MAIL_DOMAIN_ADDRESS')."/acceptInvite"
                                         .'?token='.$invite->accept_token
                                         .'&firstname='.$invite->firstname
                                         .'&lastname='.$invite->lastname
