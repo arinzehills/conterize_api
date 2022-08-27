@@ -11,6 +11,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
+              <div style="display: flex;justify-content: center">
+                <img height='70px'  src="{{asset("logo_crop.png")}}" >
+            </div>
                 <h3>Request with name {{$request_name}}</h3>
                 <p> Hey, </p>
                 <p> A content request has been assign to you by the admin</p>

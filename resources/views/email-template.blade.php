@@ -11,6 +11,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
+              <div style="display: flex;justify-content: center">
+                <img height='70px'  src="{{asset("logo_crop.png")}}" >
+            </div>
                 <h3> Send Test Email Using SendGrid Laravel 8 </h3>
                 <p> Hey, </p>
                 <p> Welcome to Conterize </p>

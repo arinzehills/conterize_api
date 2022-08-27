@@ -11,6 +11,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
+                <div style="display: flex;justify-content: center">
+                    <img height='70px'  src="{{asset("logo_crop.png")}}" >
+                </div>
                 <h3> A Demo request has been placed by a client</h3>
                 <p> Hey, </p>
                 <p> A user with the following credentials have requested a demo </p>
