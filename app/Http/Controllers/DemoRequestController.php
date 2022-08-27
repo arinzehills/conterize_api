@@ -23,7 +23,7 @@ class DemoRequestController extends Controller
         $description = $request->description;
 
         // Mail::to($to_email)->send(new FirstEmail);
-        Mail::to('hello@conterize.com')->send(new DemoRequestMail($firstname,
+        Mail::to('arinzehill@gmail.com')->send(new DemoRequestMail($firstname,
         $lastname,
         $email,
         $phone,
