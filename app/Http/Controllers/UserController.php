@@ -192,7 +192,11 @@ class UserController extends Controller {
             // echo $erros;
             return $erros;
          }else{
+
              $user = User::where('email', '=', $email)->first();
+             if(!$user){
+                return response()->json(['error' => 'these email is not register, signup instead'], 401);
+             }
              try { 
                  // verify the credentials and create a token for the user
                  if (! $token = JWTAuth::fromUser($user)) { 
