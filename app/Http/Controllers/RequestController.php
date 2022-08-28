@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Request as RequestModel;
 use App\Models\RequestDetail;
+use App\Models\User;
 use Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -57,6 +58,7 @@ class RequestController extends Controller
                             ]+
                             $request->all()
                         );
+                        $user=User::find($user_id);
                 Mail::to($user->email)->send(new OrderSuccessMail($request->request_name,$request->category));
                     
                     return response()->json([
