@@ -16,7 +16,7 @@
             </div>
                 <h3> Successfull Subscription Made </h3>
                 <p> Hey, </p>
-                <p> You have successfully subscribe to {{$plan}} plan for ${{$price}}</p>
+                <p> You have successfully subscribe to {{$plan_name}} plan for ${{$price}}</p>
                 <p> You can now start placing content request <br> </p>
                
                 <a class='button' href={{env('MAIL_DOMAIN_ADDRESS')."/dashboard/newrequest"
