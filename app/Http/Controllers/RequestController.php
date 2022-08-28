@@ -5,6 +5,9 @@ use App\Models\Request as RequestModel;
 use App\Models\RequestDetail;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderSuccessMail;
+
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
@@ -54,7 +57,8 @@ class RequestController extends Controller
                             ]+
                             $request->all()
                         );
-
+                Mail::to($user->email)->send(new OrderSuccessMail($request->request_name,$request->category));
+                    
                     return response()->json([
                         'success'=>true,
                         'message'=>'Your request has been placed successfully',

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Plan;
 use Validator;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\SubSuccessMail;
+
 
 class PaymentController extends Controller
 {   
@@ -74,6 +78,8 @@ class PaymentController extends Controller
                 $user->plan=$request->plan_name;
                 $user->payment_status='paid';
                 $user->save();  
+                $price=$plan->price/100;
+                Mail::to($user->email)->send(new SubSuccessMail($plan->plan_name,$price));
             }
             // $payment=$payment->asStripePaymentIntent();
             return response()->json([
