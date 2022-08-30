@@ -50,7 +50,7 @@ class DemoRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->from("hello@conterize.com")->view('demo-request');
+        return $this->from($email)->view('demo-request');
         // return $this->from("hello@conterize.com")->view('demo-request');
     }
 }
