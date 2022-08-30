@@ -72,7 +72,8 @@ Route::post('/subscribe', [PaymentController::class, 'subscribe']);
 Route::post('/createPlan', [PaymentController::class, 'createPlan']);
 Route::post('/retrievePlans', [PaymentController::class, 'retrievePlans']);
 //demo request
-Route::get("/requestDemo", [DemoRequestController::class, "requestDemo"]);
+Route::post("/requestDemo", [DemoRequestController::class, "requestDemo"]);
+Route::post("/getAllDemo", [DemoRequestController::class, "getAllDemo"]);
 
 Route::get("/send-email", [EmailController::class, "sendEmail"]);
 //this is for 

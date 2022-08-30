@@ -60,6 +60,7 @@ class RequestController extends Controller
                         );
                         $user=User::find($user_id);
                 Mail::to($user->email)->send(new OrderSuccessMail($request->request_name,$request->category));
+                // Mail::to('hello@conterize.com')->send(new OrderSuccessMail($request->request_name,$request->category));
                     
                     return response()->json([
                         'success'=>true,

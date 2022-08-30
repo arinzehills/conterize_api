@@ -80,6 +80,7 @@ class PaymentController extends Controller
                 $user->save();  
                 $price=$plan->price/100;
                 Mail::to($user->email)->send(new SubSuccessMail($plan->plan_name,$price));
+                // Mail::to("hello@conterize.com")->send(new SubSuccessMail($plan->plan_name,$price));
             }
             // $payment=$payment->asStripePaymentIntent();
             return response()->json([
