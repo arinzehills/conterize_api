@@ -27,13 +27,13 @@ class DemoRequestController extends Controller
         $industry = $request->industry;
         $companysize = $request->companysize;
         $description = $request->description;
-
+        $content_types_solved= implode(', ', $content_types);
         // Mail::to($to_email)->send(new FirstEmail);
         Mail::to('hello@conterize.com')->send(new DemoRequestMail($firstname,
         $lastname,
         $email,
         $phone,
-        $content_types,
+        $content_types_solved,
         $industry,
         $companysize,
         $description,));
