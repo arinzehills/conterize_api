@@ -12,12 +12,12 @@ class DemoRequestController extends Controller
     //
     public function requestDemo(Request $request){
     $created=DemoRequest::create($request->all());
-    // if($created){
-    //     return response()->json([
-    //                     'success'=>true,      
-    //                     'message'=>"Suzzess! Your E-mail sent.", 
-    //                 ], 404);
-    // }
+    if($created){
+        return response()->json([
+                        'success'=>true,      
+                        'message'=>"Suzzess! Your E-mail sent.", 
+                    ], 404);
+    }
     if($created){
         $firstname = $request->firstname;
         $lastname = $request->lastname;

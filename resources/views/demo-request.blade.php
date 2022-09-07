@@ -30,7 +30,7 @@
                 <b>Phone:<b> {{$phone}}
                 <br/>
                 <br />
-                <b>Content Types:<b> {{implode(', ', $content_types)}}
+                <b>Content Types:<b> {{ $content_types}}
                 <br/>
                 <b>Industry:<b> {{$industry}}  
                     <br />
