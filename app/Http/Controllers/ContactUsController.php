@@ -16,7 +16,7 @@ class ContactUsController extends Controller
             $email = $request->email;
             $message = $request->message;
             // Mail::to($to_email)->send(new FirstEmail);
-            Mail::to('hello@conterize.com')->send(new ContactUsMail(
+            Mail::to('arinzehill@gmail.com')->send(new ContactUsMail(
                 $name,
             $email,
             $message,));
