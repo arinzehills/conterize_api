@@ -13,7 +13,7 @@ class ContactUsController extends Controller
             $email = $request->email;
             $message = $request->message;
             // Mail::to($to_email)->send(new FirstEmail);
-            Mail::to('hello@conterize.com')->send(new DemoRequestMail(
+            Mail::to('arinzehill@gmail.com')->send(new DemoRequestMail(
                 $name,
             $email,
             $message));
