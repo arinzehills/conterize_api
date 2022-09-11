@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactUsMail;
+
 class ContactUsController extends Controller
 {
     //
@@ -15,7 +16,7 @@ class ContactUsController extends Controller
             $email = $request->email;
             $message = $request->message;
             // Mail::to($to_email)->send(new FirstEmail);
-            Mail::to('arinzehill@gmail.com')->send(new DemoRequestMail(
+            Mail::to('arinzehill@gmail.com')->send(new ContactUsMail(
                 $name,
             $email,
             $message));
