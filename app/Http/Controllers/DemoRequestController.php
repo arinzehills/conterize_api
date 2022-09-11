@@ -12,12 +12,12 @@ class DemoRequestController extends Controller
     //
     public function requestDemo(Request $request){
     $created=DemoRequest::create($request->all());
-    if($created){
-        return response()->json([
-                        'success'=>true,      
-                        'message'=>"Suzzess! Your E-mail sent.", 
-                    ], 404);
-    }
+    // if($created){
+    //     return response()->json([
+    //                     'success'=>true,      
+    //                     'message'=>"Suzzess! Your E-mail sent.", 
+    //                 ], 404);
+    // }
     if($created){
         $firstname = $request->firstname;
         $lastname = $request->lastname;
@@ -29,7 +29,7 @@ class DemoRequestController extends Controller
         $description = $request->description;
         $content_types_solved= implode(', ', $content_types);
         // Mail::to($to_email)->send(new FirstEmail);
-        Mail::to('arinzehill@gmail.com')->send(new DemoRequestMail($firstname,
+        Mail::to('hello@conterize.com')->send(new DemoRequestMail($firstname,
         $lastname,
         $email,
         $phone,

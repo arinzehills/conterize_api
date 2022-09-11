@@ -13,6 +13,7 @@ use App\Http\Controllers\MyTeamMemberController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\DeliveriesController;
 use App\Http\Controllers\DemoRequestController;
+use App\Http\Controllers\ContactUsController;
 
 Route::get('/getAllUsers', [UserController::class, 'index']);
 Route::get('/getCurrentUser', [UserController::class, 'getCurrentUser'])->middleware('last-seen');
@@ -74,6 +75,7 @@ Route::post('/retrievePlans', [PaymentController::class, 'retrievePlans']);
 //demo request
 Route::post("/requestDemo", [DemoRequestController::class, "requestDemo"]);
 Route::post("/getAllDemo", [DemoRequestController::class, "getAllDemo"]);
+Route::post("/contactUs", [ContactUsController::class, "contactUs"]);
 
 Route::get("/send-email", [EmailController::class, "sendEmail"]);
 //this is for 
