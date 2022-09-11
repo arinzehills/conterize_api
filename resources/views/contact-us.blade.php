@@ -27,7 +27,7 @@
                 
                 <br/>
                 <br />
-                <b>Message:<b> {{$message}}
+                <b>Message:<b> {{$messageReq }}
                 <br/>
                 <br/>
                 <p> Best Regards</p>

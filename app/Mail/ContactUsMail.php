@@ -14,7 +14,7 @@ class ContactUsMail extends Mailable
 
     public $name;
     public $email;
-    public $message;
+    public $messageReq;
     /**
      * Create a new message instance.
      *
@@ -23,12 +23,12 @@ class ContactUsMail extends Mailable
     public function __construct(
     $name,
     $email,
-    $message)
+    $messageReq)
     {
         //
         $this->name = $name;
         $this->email = $email;
-        $this->message =$message;
+        $this->messageReq =$messageReq;
     }
 
     /**

@@ -19,7 +19,7 @@ class ContactUsController extends Controller
             Mail::to('arinzehill@gmail.com')->send(new ContactUsMail(
                 $name,
             $email,
-            $message));
+            $message,));
     
             if(Mail::failures() != 0) {
                 return response()->json([
