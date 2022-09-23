@@ -100,7 +100,7 @@ class UserController extends Controller {
             'message'=>'user logged in successfully!',   
             'token'=> $jwt_token,
             'user'=> $user,
-        ], 422);
+        ], 200);
     }
     public function logout(Request $request){
         if(!User::checkToken($request)){
@@ -114,7 +114,7 @@ class UserController extends Controller {
             return response()->json([
                 'message'=> 'user logged out successfully!',
                 'success'=>true,
-            ], 500);
+            ], 200);
         }catch(JWTException $exception){
 
             return response()->json([
@@ -165,7 +165,7 @@ class UserController extends Controller {
             'success' => true, 
             'message' => 'Information has been updated successfully!',
             'user' =>$user
-        ]);
+        ],200);
     }
     public function updatePaymentStatus(Request $request){
         // echo($request->id);
@@ -178,7 +178,7 @@ class UserController extends Controller {
             'success' => true, 
             'message' => 'Information has been updated successfully!',
             'user' =>$user
-        ]);
+        ],200);
     }
     public function forgotPassword(Request $request){
         // $request->validate(['email' => 'required|email']);
@@ -300,7 +300,7 @@ class UserController extends Controller {
                     'success' => true, 
                     'message' => 'Password has been updated successfully!',
                     'user'=>$user,
-                ]);
+                ],200);
                 
                 // $status === Password::PASSWORD_RESET
                 //         ? response()->json(['status', __($status)])

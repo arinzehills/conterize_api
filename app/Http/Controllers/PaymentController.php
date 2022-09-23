@@ -95,6 +95,50 @@ class PaymentController extends Controller
         }
     }
     }
+    //make one time payment
+    public function makeOneTimePayment(Request $request){
+        $rules = ['email'=>'required:users,email','content_type'=>'required'];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+           // handler errors
+           $erros = $validator->errors();
+           // echo $erros;
+           return $erros;
+        }else{
+        $user =  User::find($request->user_id);
+            // return $user;
+        try {
+//             $paymentMethod = $user->addPaymentMethod($request->payment_method_id);
+
+// $paymentId = $paymentMethod->id ;
+$user->createOrGetStripeCustomer();
+$user->updateDefaultPaymentMethod($request->payment_method_id);
+            $payment=$user->charge(
+                $request->amount * 100,
+                $request->payment_method_id
+            );
+            if($payment){
+                $user->plan='Customize';
+                $user->payment_status='paid';
+                $user->invoiceFor('One Time Fee'.$request->content_type,$request->amount);
+                $user->save();  
+                $price=$request->amount *100;
+                Mail::to($user->email)->send(new SubSuccessMail("Customize Plan",$price));
+                // Mail::to("hello@conterize.com")->send(new SubSuccessMail($plan->plan_name,$price));
+            }
+            // $payment=$payment->asStripePaymentIntent();
+            return response()->json([
+                'success' => true, 
+                'message' => 'Made a successful successful subscription!',
+                // 'plan'=>$plan,
+            ]);
+        } catch (\Exception $e) {
+            //throw $e
+            return response()->json(['message'=>$e->getMessage()],500);
+
+        }
+    }
+    }
     public function showSubscription() {
         $plans = $this->retrievePlans();
         $user = Auth::user();

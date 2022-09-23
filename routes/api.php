@@ -70,6 +70,7 @@ Route::post('/getApprovedFreelancers', [FreelancersController::class, 'getApprov
 Route::post('/getUnApprovedFreelancers', [FreelancersController::class, 'getUnApprovedFreelancers']);
 //for subscription
 Route::post('/subscribe', [PaymentController::class, 'subscribe']);
+Route::post('/makeOneTimePayment', [PaymentController::class, 'makeOneTimePayment']);
 Route::post('/createPlan', [PaymentController::class, 'createPlan']);
 Route::post('/retrievePlans', [PaymentController::class, 'retrievePlans']);
 //demo request
