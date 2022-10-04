@@ -46,5 +46,9 @@ class AdminSeeder extends Seeder
             'user_type' => 'admin',
             'role_type' => 'developer',
         ]);
+        \App\Models\UserCredits::create(['user_id'=>'1']);
+        \App\Models\UserCredits::create(['user_id'=>'2']);
+        \App\Models\UserCredits::create(['user_id'=>'3']);
+        \App\Models\UserCredits::create(['user_id'=>'4']);
     }
 }
