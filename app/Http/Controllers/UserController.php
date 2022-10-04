@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserCredits;
 use App\Models\ContentCreators;
 use Cache;
 use Auth;
@@ -63,6 +64,7 @@ class UserController extends Controller {
             return $erros;
          }else{
             $created=User::create($request->all());
+            $user_credits=UserCredits::create(['user_id'=>$created->getKey(),]+$request->all());
             if($request->user_type=='content_creator'){
                 $created=ContentCreators::create(['user_id'=>$created->getKey(),'activated'=>'no',]+$request->all());
             }

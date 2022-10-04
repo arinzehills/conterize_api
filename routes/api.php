@@ -14,6 +14,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\DeliveriesController;
 use App\Http\Controllers\DemoRequestController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\UserCreditsController;
 
 Route::get('/getAllUsers', [UserController::class, 'index']);
 Route::get('/getCurrentUser', [UserController::class, 'getCurrentUser'])->middleware('last-seen');
@@ -27,6 +28,9 @@ Route::post('/updatePassword',[UserController::class, 'updatePassword']);
 Route::post('/forgotPassword',[UserController::class, 'forgotPassword']);
 Route::post('/resetPassword', [UserController::class, 'resetPassword'])->
                                             name('password.reset');
+//this is for user credits
+
+Route::post('/getUserCredits', [UserCreditsController::class, 'getUserCredits']);
 //this is for user teams
 Route::post('/getUserTeams', [TeamController::class, 'index']);
 Route::post('/addTeam', [TeamController::class, 'store']);

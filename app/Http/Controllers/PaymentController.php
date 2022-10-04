@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Plan;
 use Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Models\UserCredits;
 
 use App\Mail\SubSuccessMail;
 
@@ -106,13 +107,9 @@ class PaymentController extends Controller
            return $erros;
         }else{
         $user =  User::find($request->user_id);
-            // return $user;
         try {
-//             $paymentMethod = $user->addPaymentMethod($request->payment_method_id);
-
-// $paymentId = $paymentMethod->id ;
-$user->createOrGetStripeCustomer();
-$user->updateDefaultPaymentMethod($request->payment_method_id);
+            $user->createOrGetStripeCustomer();
+            $user->updateDefaultPaymentMethod($request->payment_method_id);
             $payment=$user->charge(
                 $request->amount * 100,
                 $request->payment_method_id
@@ -122,15 +119,49 @@ $user->updateDefaultPaymentMethod($request->payment_method_id);
                 $user->payment_status='paid';
                 $user->invoiceFor('One Time Fee'.$request->content_type,$request->amount);
                 $user->save();  
+                
                 $price=$request->amount *100;
-                Mail::to($user->email)->send(new SubSuccessMail("Customize Plan",$price));
+                $user_credits=UserCredits::where('user_id', '=', $user->getKey())->first();
+                // $user_credits->forceFill(['content_writing_credits->total_credits' => 10]);
+                if($request->content_type=='Content Writing'){
+                    $user_credits->forceFill(['total_purchased_credits->content_writing' => $request->credits])->save();
+                    $user_credits->forceFill(['content_writing_credits->total_credits' => $request->credits])->save();
+                    $user_credits->forceFill(['content_writing_credits->leftover_credits' => $request->credits])->save();
+                    // return response()->json([
+                    //     'success' => false, 
+                    //     'message' => 'Made a successful successful subscription!',
+                    //     'credits'=>$user_credits,
+                    // ]);
+                }else if($request->content_type=='Graphics Design'){
+                    $user_credits->forceFill(['total_purchased_credits->graphics' => $request->credits])->save();
+                    $user_credits->forceFill(['graphics_credits->total_credits' => $request->credits])->save();
+                    $user_credits->forceFill(['graphics_credits->leftover_credits' => $request->credits])->save();
+                    
+                    // return response()->json([
+                    //     'success' => false, 
+                    //     'message' => 'Made a successful successful subscription!',
+                    //     'credits'=>$user_credits,
+                    // ]);
+                }else{
+                    $user_credits->forceFill(['total_purchased_credits->video' => $request->credits])->save();
+                    $user_credits->forceFill(['video_credits->total_credits' => $request->credits])->save();
+                            $user_credits->forceFill(['video_credits->leftover_credits' => $request->credits])->save();
+                            
+                    // return response()->json([
+                    //     'success' => false, 
+                        // 'message' => 'Made a successful successful subscription!',
+                    //     'credits'=>$user_credits,
+                    // ]);
+                }
+                // Mail::to($user->email)->send(new SubSuccessMail("Customize Plan",$price));
                 // Mail::to("hello@conterize.com")->send(new SubSuccessMail($plan->plan_name,$price));
             }
-            // $payment=$payment->asStripePaymentIntent();
+            $payment=$payment->asStripePaymentIntent();
             return response()->json([
                 'success' => true, 
                 'message' => 'Made a successful successful subscription!',
-                // 'plan'=>$plan,
+                'plan'=>$user_credits,
+                'user'=>$user,
             ]);
         } catch (\Exception $e) {
             //throw $e
