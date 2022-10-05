@@ -46,7 +46,15 @@ class AdminSeeder extends Seeder
             'user_type' => 'admin',
             'role_type' => 'developer',
         ]);
-        \App\Models\UserCredits::create(['user_id'=>'3','content_writing_credits->total_credits' => '1400','content_writing_credits->leftover_credits'=>'1400']);
+        \App\Models\UserCredits::create(['user_id'=>'3',
+        'content_writing_credits->total_credits' => '1400',
+        'content_writing_credits->leftover_credits'=>'1400',
+        'graphics_credits->total_credits' => '20',
+        'graphics_credits->leftover_credits'=>'20',
+        'video_credits->total_credits' => '20',
+        'video_credits->leftover_credits'=>'20'
+        
+    ]);
         \App\Models\UserCredits::create(['user_id'=>'2']);
         \App\Models\UserCredits::create(['user_id'=>'1']);
         \App\Models\UserCredits::create(['user_id'=>'4']);
