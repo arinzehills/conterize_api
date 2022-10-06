@@ -62,14 +62,36 @@ class RequestController extends Controller
                         $user=User::find($user_id);
                 $user_credits=UserCredits::where('user_id', '=', $user->getKey())->first();
                 if($request->category=='content'){
-                    $user_credits->forceFill(['total_used_credits->content_writing' =>$user_credits->total_used_credits['content_writing'] + $request->leftover_credits])->save();
-                    $user_credits->forceFill(['content_writing_credits->leftover_credits' => $user_credits->content_writing_credits['leftover_credits'] - $request->credits])->save();
-                    $user_credits->forceFill(['content_writing_credits->used_credits' => $user_credits->content_writing_credits['used_credits'] + $request->credits])->save();
-                }else if($request->content_type=='graphics'){
+                    if($user_credits->content_writing_credits['leftover_credits']==0){
+                        return response()->json([
+                            'success'=>false,
+                            'message'=>'Please purchase more credits',
+                            'user_credits'=> $user_credits->content_writing_credits['used_credits']
+                        ]);
+                    }else{
+                        $user_credits->forceFill(['total_used_credits->content_writing' =>$user_credits->total_used_credits['content_writing'] + $request->leftover_credits])->save();
+                        $user_credits->forceFill(['content_writing_credits->leftover_credits' => $user_credits->content_writing_credits['leftover_credits'] - $request->credits])->save();
+                        $user_credits->forceFill(['content_writing_credits->used_credits' => $user_credits->content_writing_credits['used_credits'] + $request->credits])->save();
+                    }
+                }else if($request->category=='graphics'){
+                    if($user_credits->graphics_credits['leftover_credits']==0){
+                        return response()->json([
+                            'success'=>false,
+                            'message'=>'Please purchase more credits',
+                            'user_credits'=> $user_credits->graphics_credits['used_credits']
+                        ]);
+                    }
                     $user_credits->forceFill(['total_used_credits->graphics' =>$user_credits->total_used_credits['graphics'] + $request->leftover_credits])->save();
                     $user_credits->forceFill(['graphics_credits->leftover_credits' => $user_credits->graphics_credits['leftover_credits'] - $request->credits])->save();
                     $user_credits->forceFill(['graphics_credits->used_credits' => $user_credits->graphics_credits['used_credits'] + $request->credits])->save();
                 }else{
+                    if($user_credits->video_credits['leftover_credits']==0){
+                        return response()->json([
+                            'success'=>false,
+                            'message'=>'Please purchase more credits',
+                            'user_credits'=> $user_credits->video_credits['used_credits']
+                        ]);
+                    }
                     $user_credits->forceFill(['total_used_credits->video' =>$user_credits->total_used_credits['video'] + $request->leftover_credits])->save();
                     $user_credits->forceFill(['video_credits->leftover_credits' => $user_credits->video_credits['leftover_credits'] - $request->credits])->save();
                     $user_credits->forceFill(['video_credits->used_credits' => $user_credits->video_credits['used_credits'] + $request->credits])->save();

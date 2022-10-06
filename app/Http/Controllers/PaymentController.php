@@ -170,6 +170,82 @@ class PaymentController extends Controller
         }
     }
     }
+    //make one time payment
+    public function addCreditsPayment(Request $request){
+        $rules = ['email'=>'required:users,email','content_type'=>'required'];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+           // handler errors
+           $erros = $validator->errors();
+           // echo $erros;
+           return $erros;
+        }else{
+        $user =  User::find($request->user_id);
+        try {
+            $user->createOrGetStripeCustomer();
+            $user->updateDefaultPaymentMethod($request->payment_method_id);
+            $payment=$user->charge(
+                $request->amount * 100,
+                $request->payment_method_id
+            );
+            if($payment){
+                $user->invoiceFor('One Time Fee'.$request->content_type,$request->amount);
+                $user->save();  
+                $price=$request->amount *100;
+                $user_credits=UserCredits::where('user_id', '=', $user->getKey())->first();
+                if($request->content_type=='Content Writing'){
+                    $user_credits->forceFill(['total_purchased_credits->content_writing' =>$user_credits->total_purchased_credits['content_writing'] + $request->leftover_credits])->save();
+                    // if($user_credits->content_writing_credits['leftover_credits']<=0){
+                    //     $user_credits->forceFill(['content_writing_credits->total_credits' => $request->credits])->save();
+                    // }else 
+                    if($user_credits->content_writing_credits['used_credits']== $user_credits->content_writing_credits['total_credits']){
+                        $user_credits->forceFill(['content_writing_credits->total_credits' => $request->credits])->save();
+                        $user_credits->forceFill(['content_writing_credits->leftover_credits' => $request->credits])->save();
+                        $user_credits->forceFill(['content_writing_credits->used_credits' => 0])->save();
+                    }else{  
+                        $user_credits->forceFill(['content_writing_credits->total_credits' => $user_credits->content_writing_credits['total_credits'] + $request->credits])->save();
+                        $user_credits->forceFill(['content_writing_credits->leftover_credits' => $user_credits->content_writing_credits['leftover_credits'] + $request->credits])->save();
+                    }
+                    // $user_credits->forceFill(['content_writing_credits->used_credits' => $user_credits->content_writing_credits['used_credits'] + $request->credits])->save();
+                }else if($request->content_type=='Graphics Design'){
+                    $user_credits->forceFill(['total_purchased_credits->graphics' =>$user_credits->total_purchased_credits['graphics'] + $request->leftover_credits])->save();
+                    if($user_credits->graphics_credits['used_credits']== $user_credits->graphics_credits['total_credits']){
+                        $user_credits->forceFill(['graphics_credits->total_credits' => $request->credits])->save();
+                        $user_credits->forceFill(['graphics_credits->leftover_credits' => $request->credits])->save();
+                        $user_credits->forceFill(['graphics_credits->used_credits' => 0])->save();
+                    }else{  
+                        $user_credits->forceFill(['graphics_credits->total_credits' => $user_credits->graphics_credits['total_credits'] + $request->credits])->save();
+                        $user_credits->forceFill(['graphics_credits->leftover_credits' => $user_credits->graphics_credits['leftover_credits'] + $request->credits])->save();
+                    }// $user_credits->forceFill(['graphics_credits->used_credits' => $user_credits->graphics_credits['used_credits'] + $request->credits])->save();
+                }else{
+                    $user_credits->forceFill(['total_purchased_credits->video' =>$user_credits->total_purchased_credits['video'] + $request->leftover_credits])->save();
+                    if($user_credits->video_credits['used_credits']== $user_credits->video_credits['total_credits']){
+                        $user_credits->forceFill(['video_credits->total_credits' => $request->credits])->save();
+                        $user_credits->forceFill(['video_credits->leftover_credits' => $request->credits])->save();
+                        $user_credits->forceFill(['video_credits->used_credits' => 0])->save();
+                    }else{  
+                        $user_credits->forceFill(['video_credits->total_credits' => $user_credits->video_credits['total_credits'] + $request->credits])->save();
+                        $user_credits->forceFill(['video_credits->leftover_credits' => $user_credits->video_credits['leftover_credits'] + $request->credits])->save();
+                    }
+                    // $user_credits->forceFill(['video_credits->used_credits' => $user_credits->video_credits['used_credits'] + $request->credits])->save();
+                }
+                // Mail::to($user->email)->send(new SubSuccessMail("Customize Plan",$price));
+                // Mail::to("hello@conterize.com")->send(new SubSuccessMail($plan->plan_name,$price));
+            }
+            $payment=$payment->asStripePaymentIntent();
+            return response()->json([
+                'success' => true, 
+                'message' => 'Made a successful successful payment!',
+                'plan'=>$user_credits,
+                'user'=>$user,
+            ]);
+        } catch (\Exception $e) {
+            //throw $e
+            return response()->json(['message'=>$e->getMessage()],500);
+
+        }
+    }
+    }
     public function showSubscription() {
         $plans = $this->retrievePlans();
         $user = Auth::user();

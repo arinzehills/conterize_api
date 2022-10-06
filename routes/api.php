@@ -31,6 +31,7 @@ Route::post('/resetPassword', [UserController::class, 'resetPassword'])->
 //this is for user credits
 
 Route::post('/getUserCredits', [UserCreditsController::class, 'getUserCredits']);
+Route::post('/addCreditsPayment', [PaymentController::class, 'addCreditsPayment']);
 //this is for user teams
 Route::post('/getUserTeams', [TeamController::class, 'index']);
 Route::post('/addTeam', [TeamController::class, 'store']);
